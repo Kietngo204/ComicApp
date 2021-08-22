@@ -110,7 +110,6 @@ class _DocPage1State extends State<DocPage1> {
                         onPressed: () {}, child: Text('Chap sau'))),
               )
             ])),
-            //hihihihihfidhfihdfihdifhdihfidf
             SizedBox(
                 // width: MediaQuery.of(context).size.width - 40,
                 height: 1000,
