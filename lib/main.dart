@@ -7,6 +7,7 @@ import 'doc truyen/page2.dart';
 void main() {
   //Center is a widget, Text is a widget
   runApp(MaterialApp(
+      debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
         '/page1': (context) => Page1(),
