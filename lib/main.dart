@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:text_1/doc%20truyen/page1.dart';
 import 'package:text_1/screens/home_screen.dart';
-
+import 'package:flutter/widgets.dart';
 import 'doc truyen/page2.dart';
 
 void main() {

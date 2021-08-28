@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:text_1/doc%20truyen/Doc_page/droplist.dart/listdocpage1.dart';
 import 'package:dotted_decoration/dotted_decoration.dart';
@@ -43,7 +41,7 @@ class _DocPage1State extends State<DocPage1> {
       int indexNew = this.lstChapter.indexOf(value);
       /*  if (indexNew == indexCurrent) {
         //cái này xử lý cho việc nếu nó đang chọn lại cái giá trị đang xuất hiện thì k làm gì hết
-        //giờ thì Lỳ thấy hắn bình thường vì chưa có cái gì hết sau Lỳ mới hiểu vì răng Vũ mần rứa
+        //giờ thì Lỳ thấy hắn bình thường vì chưa có cái gì hết sau Lỳ mới hiểu vì răng Vưũ mần rứa
         return;
       } */
       indexCurrent = indexNew;
@@ -100,24 +98,6 @@ class _DocPage1State extends State<DocPage1> {
                             onChanged: (String? value) {
                               onChangeSelected(value!);
                               print(selected);
-                              WebViewPlus(
-                                onWebViewCreated: (controller) {
-                                  this._controller = controller;
-                                  controller.loadUrl(
-                                      'http://www.nettruyenvip.com/truyen-tranh/anh-hung-onepunch/chap-1/80034');
-                                },
-                                onPageFinished: (url) {
-                                  // _controller.getWebviewPlusHeight().then((double height) {
-                                  //   print("Height:  " + height.toString());
-                                  //   setState(() {});
-                                  // });
-                                  print('FINISHED');
-                                  setState(() {
-                                    isLoading = false;
-                                  });
-                                },
-                                javascriptMode: JavascriptMode.unrestricted,
-                              );
                             },
                             items: this
                                 .lstChapter
