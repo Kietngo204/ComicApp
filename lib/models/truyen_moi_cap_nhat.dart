@@ -1,4 +1,4 @@
-import 'package:text_1/doc%20truyen/page1.dart';
+import 'package:text_1/docTtruyen/page1.dart';
 
 class ListTruyenCapNhat {
   String url;

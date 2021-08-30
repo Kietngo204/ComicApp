@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:text_1/doc%20truyen/Doc_page/droplist.dart/listdocpage1.dart';
-import 'package:dotted_decoration/dotted_decoration.dart';
+import 'package:text_1/docTtruyen/Doc_page/droplist.dart/_docpage1.dart';
 import 'package:webview_flutter_plus/webview_flutter_plus.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -15,39 +14,43 @@ class DocPage1 extends StatefulWidget {
 //ok
 //đặt tên folder gì kỳ vậy trời ><
 class _DocPage1State extends State<DocPage1> {
-  String selected = "";
+  //String selected = "";
   int indexCurrent = 0;
   late WebViewPlusController _controller;
   bool isLoading = false;
   //List<DocOne1> one = List<DocOne1>.empty();
-
-  List<String> lstChapter = [];
+  late DocPagea _selected;
+  List<DocPagea> lstChapter = DocPagea.lstChapter();
 
   @override
   void initState() {
     super.initState();
-
+    _selected = lstChapter[indexCurrent];
+    print(lstChapter.length);
     isLoading = true;
-
+/* 
     for (int i = 1; i <= 100; i++) {
       this.lstChapter.add('Chapter $i');
     }
-    selected = this.lstChapter[indexCurrent];
+
+    selected = this.lstChapter[indexCurrent]; */
     //if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
   }
 
-  void onChangeSelected(String value) {
+  /* onChangeSelected(DocPagea value) {
     setState(() {
-      int indexNew = this.lstChapter.indexOf(value);
+      /* int indexNew = this.lstChapter.indexOf(value);
       /*  if (indexNew == indexCurrent) {
         //cái này xử lý cho việc nếu nó đang chọn lại cái giá trị đang xuất hiện thì k làm gì hết
         //giờ thì Lỳ thấy hắn bình thường vì chưa có cái gì hết sau Lỳ mới hiểu vì răng Vưũ mần rứa
         return;
       } */
       indexCurrent = indexNew;
-      selected = this.lstChapter[indexCurrent];
+      selected = this.lstChapter[indexCurrent]; */
+
+      _selected = value;
     });
-  }
+  } */
 
   late WebViewPlusController controller;
   @override
@@ -93,23 +96,20 @@ class _DocPage1State extends State<DocPage1> {
                       Container(
                         width: 120,
                         height: 50,
-                        child: DropdownButton(
-                            value: selected,
-                            onChanged: (String? value) {
-                              onChangeSelected(value!);
-                              print(selected);
+                        child: DropdownButton<DocPagea>(
+                            value: _selected,
+                            onChanged: (value) {
+                              setState(() {
+                                _selected = value!;
+                                print('URL_TRUYEN: ' + _selected.url);
+                              });
                             },
-                            items: this
-                                .lstChapter
-                                .map<DropdownMenuItem<String>>((String value1) {
-                              return DropdownMenuItem<String>(
-                                onTap: () {
-                                  print('You clicked: $value1');
-                                },
-                                value: value1,
-                                child: Text(value1),
-                              );
-                            }).toList()),
+                            items: lstChapter
+                                .map((DocPagea value) =>
+                                    DropdownMenuItem<DocPagea>(
+                                        value: value,
+                                        child: Text(value.chapter)))
+                                .toList()),
                       ),
                       Container(
                         child: ButtonTheme(
@@ -130,8 +130,7 @@ class _DocPage1State extends State<DocPage1> {
                           WebViewPlus(
                             onWebViewCreated: (controller) {
                               this._controller = controller;
-                              controller.loadUrl(
-                                  'http://www.nettruyenvip.com/truyen-tranh/anh-hung-onepunch/chap-1/80034');
+                              controller.loadUrl(_selected.url);
                             },
                             onPageFinished: (url) {
                               // _controller.getWebviewPlusHeight().then((double height) {

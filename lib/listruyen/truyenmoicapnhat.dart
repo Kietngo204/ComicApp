@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:text_1/doc%20truyen/page1.dart';
+import 'package:text_1/docTtruyen/page1.dart';
 import 'package:text_1/models/truyen_moi_cap_nhat.dart';
 
 class TruyenMoiCapNhat extends StatefulWidget {
