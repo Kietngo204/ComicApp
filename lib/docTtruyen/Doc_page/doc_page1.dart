@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:text_1/docTtruyen/Doc_page/droplist.dart/_docpage1.dart';
 import 'package:webview_flutter_plus/webview_flutter_plus.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -16,7 +17,7 @@ class DocPage1 extends StatefulWidget {
 class _DocPage1State extends State<DocPage1> {
   //String selected = "";
   int indexCurrent = 0;
-  late WebViewPlusController _controller;
+  //late WebViewPlusController _controller;
   bool isLoading = false;
   //List<DocOne1> one = List<DocOne1>.empty();
   late DocPagea _selected;
@@ -51,8 +52,11 @@ class _DocPage1State extends State<DocPage1> {
       _selected = value;
     });
   } */
-
-  late WebViewPlusController controller;
+  var js = "document.getElementsByClassName('header')[0].style.display = 'none';document.getElementsByClassName('footer')[0].style.display = 'none';" +
+      "document.getElementsByClassName('reading')[0].childNodes.forEach(function(item){" +
+      "if (item.className != 'reading-detail box_doc' && item.className != undefined){item.style.display = 'none';}});";
+  final webViewKey = GlobalKey<_DocPage1State>();
+  late WebViewController _controller;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,7 +94,11 @@ class _DocPage1State extends State<DocPage1> {
                       Container(
                         child: ButtonTheme(
                             child: ElevatedButton(
-                                onPressed: () {}, child: Text('Chap trước'))),
+                                onPressed: () {
+                                  lstChapter[indexCurrent--];
+                                  //_controller.goBack();
+                                },
+                                child: Text('Chap trước'))),
                       ),
                       //dsadsadsada
                       Container(
@@ -103,6 +111,7 @@ class _DocPage1State extends State<DocPage1> {
                                 _selected = value!;
                                 print('URL_TRUYEN: ' + _selected.url);
                               });
+                              _controller.loadUrl(_selected.url);
                             },
                             items: lstChapter
                                 .map((DocPagea value) =>
@@ -114,7 +123,10 @@ class _DocPage1State extends State<DocPage1> {
                       Container(
                         child: ButtonTheme(
                             child: ElevatedButton(
-                                onPressed: () {}, child: Text('Chap sau'))),
+                                onPressed: () {
+                                  lstChapter[indexCurrent++];
+                                },
+                                child: Text('Chap sau'))),
                       )
                     ]))),
             Expanded(
@@ -127,10 +139,11 @@ class _DocPage1State extends State<DocPage1> {
                       width: MediaQuery.of(context).size.width,
                       child: Stack(
                         children: [
-                          WebViewPlus(
-                            onWebViewCreated: (controller) {
-                              this._controller = controller;
-                              controller.loadUrl(_selected.url);
+                          WebView(
+                            // key: webViewKey,
+                            initialUrl: _selected.url,
+                            onWebViewCreated: (WebViewController controller) {
+                              _controller = controller;
                             },
                             onPageFinished: (url) {
                               // _controller.getWebviewPlusHeight().then((double height) {
@@ -141,7 +154,9 @@ class _DocPage1State extends State<DocPage1> {
                               setState(() {
                                 isLoading = false;
                               });
+                              _controller.evaluateJavascript(js);
                             },
+
                             javascriptMode: JavascriptMode.unrestricted,
                           ),
                           Positioned(
@@ -173,5 +188,9 @@ class _DocPage1State extends State<DocPage1> {
             )
           ])),
     );
+  }
+
+  void reloadWebView() {
+    _controller.reload();
   }
 }
