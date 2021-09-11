@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import 'package:text_1/docTtruyen/Doc_page/droplist.dart/_docpage1.dart';
@@ -17,6 +20,7 @@ class DocPage1 extends StatefulWidget {
 class _DocPage1State extends State<DocPage1> {
   //String selected = "";
   int indexCurrent = 0;
+  var count = 0;
   //late WebViewPlusController _controller;
   bool isLoading = false;
   //List<DocOne1> one = List<DocOne1>.empty();
@@ -29,6 +33,7 @@ class _DocPage1State extends State<DocPage1> {
     _selected = lstChapter[indexCurrent];
     print(lstChapter.length);
     isLoading = true;
+
 /* 
     for (int i = 1; i <= 100; i++) {
       this.lstChapter.add('Chapter $i');
@@ -95,8 +100,10 @@ class _DocPage1State extends State<DocPage1> {
                         child: ButtonTheme(
                             child: ElevatedButton(
                                 onPressed: () {
-                                  lstChapter[indexCurrent--];
                                   //_controller.goBack();
+                                  setState(() {
+                                    indexCurrent--;
+                                  });
                                 },
                                 child: Text('Chap trước'))),
                       ),
@@ -109,22 +116,21 @@ class _DocPage1State extends State<DocPage1> {
                             onChanged: (value) {
                               setState(() {
                                 _selected = value!;
-                                print('URL_TRUYEN: ' + _selected.url);
+                                isLoading = true;
                               });
+
                               _controller.loadUrl(_selected.url);
                             },
-                            items: lstChapter
-                                .map((DocPagea value) =>
-                                    DropdownMenuItem<DocPagea>(
-                                        value: value,
-                                        child: Text(value.chapter)))
-                                .toList()),
+                            items: lstChapter.map((DocPagea value) {
+                              return DropdownMenuItem<DocPagea>(
+                                  value: value, child: Text(value.chapter));
+                            }).toList()),
                       ),
                       Container(
                         child: ButtonTheme(
                             child: ElevatedButton(
                                 onPressed: () {
-                                  lstChapter[indexCurrent++];
+                                  nextChapter();
                                 },
                                 child: Text('Chap sau'))),
                       )
@@ -140,9 +146,12 @@ class _DocPage1State extends State<DocPage1> {
                       child: Stack(
                         children: [
                           WebView(
-                            // key: webViewKey,
+                            //key: webViewKey,
                             initialUrl: _selected.url,
-                            onWebViewCreated: (WebViewController controller) {
+                            onWebViewCreated:
+                                (WebViewController controller)  {
+                              setState(() {});
+
                               _controller = controller;
                             },
                             onPageFinished: (url) {
@@ -150,11 +159,12 @@ class _DocPage1State extends State<DocPage1> {
                               //   print("Height:  " + height.toString());
                               //   setState(() {});
                               // });
+                              _controller.evaluateJavascript(js);
+                              sleep(Duration(seconds: 1));
                               print('FINISHED');
                               setState(() {
                                 isLoading = false;
                               });
-                              _controller.evaluateJavascript(js);
                             },
 
                             javascriptMode: JavascriptMode.unrestricted,
@@ -165,7 +175,10 @@ class _DocPage1State extends State<DocPage1> {
                               right: 0,
                               bottom: 0,
                               child: isLoading
-                                  ? Center(child: CircularProgressIndicator())
+                                  ? Container(
+                                      child: Center(
+                                          child: CircularProgressIndicator()),
+                                      color: Colors.white)
                                   : Container())
                         ],
                       ))),
@@ -190,7 +203,8 @@ class _DocPage1State extends State<DocPage1> {
     );
   }
 
-  void reloadWebView() {
-    _controller.reload();
+  void nextChapter() {
+    indexCurrent++;
+    print(indexCurrent);
   }
 }
