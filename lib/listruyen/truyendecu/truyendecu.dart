@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:text_1/models/truyen_de_cu.dart';
+import 'package:text_1/listruyen/truyendecu/truyen_de_cu.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart';
 
@@ -28,7 +28,7 @@ class TruyenDeCuState extends State {
     _conTroller.animateTo(
         ((MediaQuery.of(context).size.width) * 1 / 2) * indexCurrent,
         duration: Duration(seconds: 1),
-        curve: Curves.easeInOut);
+        curve: Curves.easeInToLinear);
   }
 
   @override
@@ -126,7 +126,7 @@ class TruyenDeCuState extends State {
             ),
             Container(
               alignment: Alignment.centerRight,
-              padding: EdgeInsets.only(top: 60),
+              padding: EdgeInsets.only(top: 60, right: 10),
               child: GestureDetector(
                 onTap: () {
                   scrollNextItem('+');
@@ -144,7 +144,7 @@ class TruyenDeCuState extends State {
             ),
             Container(
               alignment: Alignment.centerLeft,
-              padding: EdgeInsets.only(top: 60),
+              padding: EdgeInsets.only(top: 60, left: 10),
               child: GestureDetector(
                 onTap: () {
                   // _conTroller.animateTo(

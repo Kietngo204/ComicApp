@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:text_1/models/top_truyen.dart';
+import 'package:text_1/listruyen/toptruyen/top_truyen.dart';
 
 class ListTopTruyen extends StatefulWidget {
   @override

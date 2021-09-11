@@ -1,5 +1,3 @@
-import 'package:text_1/docTtruyen/page1.dart';
-
 class ListTruyenCapNhat {
   String url;
   String view;

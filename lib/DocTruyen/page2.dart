@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:dotted_decoration/dotted_decoration.dart';
 
 class Page2 extends StatefulWidget {
   @override

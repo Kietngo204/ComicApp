@@ -1,11 +1,11 @@
-import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-import 'package:text_1/docTtruyen/Doc_page/droplist.dart/_docpage1.dart';
 import 'package:webview_flutter_plus/webview_flutter_plus.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+
+import '_docPage1.dart';
 
 class DocPage1 extends StatefulWidget {
   const DocPage1({Key? key}) : super(key: key);
@@ -148,8 +148,7 @@ class _DocPage1State extends State<DocPage1> {
                           WebView(
                             //key: webViewKey,
                             initialUrl: _selected.url,
-                            onWebViewCreated:
-                                (WebViewController controller)  {
+                            onWebViewCreated: (WebViewController controller) {
                               setState(() {});
 
                               _controller = controller;
