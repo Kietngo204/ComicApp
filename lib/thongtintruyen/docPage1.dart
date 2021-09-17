@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -20,13 +21,13 @@ class DocPage1 extends StatefulWidget {
 class _DocPage1State extends State<DocPage1> {
   //String selected = "";
   int indexCurrent = 0;
-  var count = 0;
+  var count;
   //late WebViewPlusController _controller;
   bool isLoading = false;
   //List<DocOne1> one = List<DocOne1>.empty();
   late DocPagea _selected;
   List<DocPagea> lstChapter = DocPagea.lstChapter();
-
+  late int indexNew;
   @override
   void initState() {
     super.initState();
@@ -57,6 +58,21 @@ class _DocPage1State extends State<DocPage1> {
       _selected = value;
     });
   } */
+  void nextChapter(String s) {
+    if (s == ('-')) {
+      indexCurrent--;
+    } else {
+      indexCurrent++;
+    }
+    setState(() {
+      _selected = lstChapter[indexCurrent];
+      indexNew = indexCurrent;
+      _controller.loadUrl(_selected.url);
+      isLoading = true;
+      print('$indexNew');
+    });
+  }
+
   var js = "document.getElementsByClassName('header')[0].style.display = 'none';document.getElementsByClassName('footer')[0].style.display = 'none';" +
       "document.getElementsByClassName('reading')[0].childNodes.forEach(function(item){" +
       "if (item.className != 'reading-detail box_doc' && item.className != undefined){item.style.display = 'none';}});";
@@ -102,7 +118,7 @@ class _DocPage1State extends State<DocPage1> {
                                 onPressed: () {
                                   //_controller.goBack();
                                   setState(() {
-                                    indexCurrent--;
+                                    nextChapter('-');
                                   });
                                 },
                                 child: Text('Chap trước'))),
@@ -117,11 +133,15 @@ class _DocPage1State extends State<DocPage1> {
                               setState(() {
                                 _selected = value!;
                                 isLoading = true;
+                                indexNew = this.lstChapter.indexOf(value);
+                                // indexCurrent = lstChapter.length;
+                                indexCurrent = indexNew;
                               });
-
+                              //_selected = indexNew;
+                              print('$indexNew');
                               _controller.loadUrl(_selected.url);
                             },
-                            items: lstChapter.map((DocPagea value) {
+                            items: lstChapter.skip(0).map((DocPagea value) {
                               return DropdownMenuItem<DocPagea>(
                                   value: value, child: Text(value.chapter));
                             }).toList()),
@@ -130,7 +150,7 @@ class _DocPage1State extends State<DocPage1> {
                         child: ButtonTheme(
                             child: ElevatedButton(
                                 onPressed: () {
-                                  nextChapter();
+                                  nextChapter('+');
                                 },
                                 child: Text('Chap sau'))),
                       )
@@ -200,10 +220,5 @@ class _DocPage1State extends State<DocPage1> {
             )
           ])),
     );
-  }
-
-  void nextChapter() {
-    indexCurrent++;
-    print(indexCurrent);
   }
 }
