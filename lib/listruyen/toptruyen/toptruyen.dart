@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'topmonth/topmonth.dart';
+import 'topweek/topweek.dart';
 
 class ListTopTruyen extends StatefulWidget {
   @override
@@ -70,7 +71,7 @@ class DanhSachTopTruyen extends State with TickerProviderStateMixin {
             ),
             child: TabBarView(controller: _tabController, children: <Widget>[
               ListTopMonth(),
-              Text('bbbbb'),
+              ListTopWeek(),
               Text('ccccc'),
             ]))
       ]),

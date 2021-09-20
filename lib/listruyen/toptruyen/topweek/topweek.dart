@@ -1,34 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:text_1/listruyen/toptruyen/topmonth/Request_topmonth.dart';
 
-import 'Api_topmonth.dart';
+import 'Api_topweek.dart';
+import 'Request_topweek.dart';
 
-class ListTopMonth extends StatefulWidget {
-  const ListTopMonth({Key? key}) : super(key: key);
+class ListTopWeek extends StatefulWidget {
+  const ListTopWeek({Key? key}) : super(key: key);
 
   @override
-  _ListTopMonthState createState() => _ListTopMonthState();
+  _ListTopWeekState createState() => _ListTopWeekState();
 }
 
-class _ListTopMonthState extends State<ListTopMonth>
-    with TickerProviderStateMixin {
-  late TopMonth _topMonth;
+class _ListTopWeekState extends State<ListTopWeek> {
+  late TopWeek _topWeek;
   late bool iLoading;
   @override
   void initState() {
     super.initState();
 
     // indexCurrent = 0;
-    TopMonthRequest.fetchTopMonth().then((dataFromTopMonth) {
+    TopWeekRequest.fetchTopWeek().then((dataFromTopWeek) {
       setState(() {
-        _topMonth = dataFromTopMonth;
+        _topWeek = dataFromTopWeek;
       });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return _topMonth.errorCode == 0
+    return _topWeek.errorCode == 0
         ? Container(
             child: ListView.separated(
                 separatorBuilder: (BuildContext context, int index) {
@@ -38,7 +37,7 @@ class _ListTopMonthState extends State<ListTopMonth>
                       );
                 },
                 scrollDirection: Axis.vertical,
-                itemCount: _topMonth.data.length,
+                itemCount: _topWeek.data.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
                       margin: EdgeInsets.only(left: 5, right: 5),
@@ -87,7 +86,7 @@ class _ListTopMonthState extends State<ListTopMonth>
                                   Container(
                                     padding: EdgeInsets.only(top: 5, bottom: 5),
                                     child: Image.network(
-                                        _topMonth.data[index].urlImg,
+                                        _topWeek.data[index].urlImg,
                                         width: 80,
                                         height: 70,
                                         fit: BoxFit.cover),
@@ -112,7 +111,7 @@ class _ListTopMonthState extends State<ListTopMonth>
                                                 2,
                                         padding: EdgeInsets.only(top: 10),
                                         child: Text(
-                                          _topMonth.data[index].tenTruyen,
+                                          _topWeek.data[index].tenTruyen,
                                           maxLines: 1,
                                           softWrap: false,
                                           style: TextStyle(
@@ -134,7 +133,7 @@ class _ListTopMonthState extends State<ListTopMonth>
                                           children: [
                                             Container(
                                               child: Text(
-                                                  '${_topMonth.data[index].details[0].chapter}',
+                                                  '${_topWeek.data[index].details[0].chapter}',
                                                   style:
                                                       TextStyle(fontSize: 14)),
                                             ),
@@ -151,7 +150,7 @@ class _ListTopMonthState extends State<ListTopMonth>
                                                   size: 13),
                                               Container(
                                                   child: Text(
-                                                _topMonth.data[index].view,
+                                                _topWeek.data[index].view,
                                                 style: TextStyle(fontSize: 13),
                                               ))
                                             ],
@@ -173,7 +172,7 @@ class _ListTopMonthState extends State<ListTopMonth>
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(_topMonth.errorMsg),
+                Text(_topWeek.errorMsg),
                 SizedBox(
                   height: 10,
                 ),
@@ -189,10 +188,9 @@ class _ListTopMonthState extends State<ListTopMonth>
                         color: Colors.white,
                       ),
                       onTap: () {
-                        TopMonthRequest.fetchTopMonth()
-                            .then((dataFromTopMonth) {
+                        TopWeekRequest.fetchTopWeek().then((dataFromTopWeek) {
                           setState(() {
-                            _topMonth = dataFromTopMonth;
+                            _topWeek = dataFromTopWeek;
                           });
                         });
                       },
