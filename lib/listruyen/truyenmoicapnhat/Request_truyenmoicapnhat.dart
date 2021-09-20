@@ -16,7 +16,7 @@ class TruyenMoiCapNhatRequest {
       final response = await http.get(Uri.parse(url + 'api/comic/moicapnhat'));
       if (response.statusCode == 200) {
         var jsonResponse = json.decode(response.body);
-        print(response.body);
+
         return ListTruyenMoiCapNhat.fromJson(jsonResponse);
       }
       return _truyencapnhat;
