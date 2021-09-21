@@ -1,33 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:text_1/listruyen/toptruyen/topday/Api_topday.dart';
 
-import 'Api_topweek.dart';
-import 'Request_topweek.dart';
+import 'Request_topday.dart';
 
-class ListTopWeek extends StatefulWidget {
-  const ListTopWeek({Key? key}) : super(key: key);
+class ListTopDay extends StatefulWidget {
+  const ListTopDay({Key? key}) : super(key: key);
 
   @override
-  _ListTopWeekState createState() => _ListTopWeekState();
+  _ListTopDayState createState() => _ListTopDayState();
 }
 
-class _ListTopWeekState extends State<ListTopWeek> {
-  late TopWeek _topWeek;
+class _ListTopDayState extends State<ListTopDay> with TickerProviderStateMixin {
+  late TopDay _topDay;
   late bool iLoading;
   @override
   void initState() {
     super.initState();
 
     // indexCurrent = 0;
-    TopWeekRequest.fetchTopWeek().then((dataFromTopWeek) {
+    TopDayRequest.fetchTopDay().then((dataFromTopDay) {
       setState(() {
-        _topWeek = dataFromTopWeek;
+        _topDay = dataFromTopDay;
       });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return _topWeek.errorCode == 0
+    return _topDay.errorCode == 0
         ? Container(
             child: ListView.separated(
                 separatorBuilder: (BuildContext context, int index) {
@@ -37,7 +37,7 @@ class _ListTopWeekState extends State<ListTopWeek> {
                       );
                 },
                 scrollDirection: Axis.vertical,
-                itemCount: _topWeek.data.length,
+                itemCount: _topDay.data.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
                       margin: EdgeInsets.only(left: 5, right: 5),
@@ -87,7 +87,7 @@ class _ListTopWeekState extends State<ListTopWeek> {
                                   Container(
                                     padding: EdgeInsets.only(top: 5, bottom: 5),
                                     child: Image.network(
-                                        _topWeek.data[index].urlImg,
+                                        _topDay.data[index].urlImg,
                                         width: 80,
                                         height: 70,
                                         fit: BoxFit.cover),
@@ -112,7 +112,7 @@ class _ListTopWeekState extends State<ListTopWeek> {
                                                 2,
                                         padding: EdgeInsets.only(top: 10),
                                         child: Text(
-                                          _topWeek.data[index].tenTruyen,
+                                          _topDay.data[index].tenTruyen,
                                           maxLines: 1,
                                           softWrap: false,
                                           style: TextStyle(
@@ -134,7 +134,7 @@ class _ListTopWeekState extends State<ListTopWeek> {
                                           children: [
                                             Container(
                                               child: Text(
-                                                  '${_topWeek.data[index].details[0].chapter}',
+                                                  '${_topDay.data[index].details[0].chapter}',
                                                   style:
                                                       TextStyle(fontSize: 14)),
                                             ),
@@ -151,7 +151,7 @@ class _ListTopWeekState extends State<ListTopWeek> {
                                                   size: 13),
                                               Container(
                                                   child: Text(
-                                                _topWeek.data[index].view,
+                                                _topDay.data[index].view,
                                                 style: TextStyle(fontSize: 13),
                                               ))
                                             ],
@@ -168,12 +168,12 @@ class _ListTopWeekState extends State<ListTopWeek> {
                       ));
                 }),
           )
-        : Center(
+        : Container(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(_topWeek.errorMsg),
+                Text(_topDay.errorMsg),
                 SizedBox(
                   height: 10,
                 ),
@@ -189,9 +189,9 @@ class _ListTopWeekState extends State<ListTopWeek> {
                         color: Colors.white,
                       ),
                       onTap: () {
-                        TopWeekRequest.fetchTopWeek().then((dataFromTopWeek) {
+                        TopDayRequest.fetchTopDay().then((dataFromTopDay) {
                           setState(() {
-                            _topWeek = dataFromTopWeek;
+                            _topDay = dataFromTopDay;
                           });
                         });
                       },

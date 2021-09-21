@@ -15,7 +15,6 @@ class TopWeekRequest {
       final response =
           await http.get(Uri.parse(url + 'api/comic/dstruyen/12/1'));
       if (response.statusCode == 200) {
-        print(response.body);
         var jsonResponse = jsonDecode(response.body);
         return TopWeek.fromJson(jsonResponse);
       }

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:text_1/listruyen/toptruyen/topday/topday.dart';
 
 import 'topmonth/topmonth.dart';
 import 'topweek/topweek.dart';
@@ -50,7 +51,10 @@ class DanhSachTopTruyen extends State with TickerProviderStateMixin {
               labelPadding: EdgeInsets.all(10),
               controller: _tabController,
               tabs: <Widget>[
-                Text('Top tháng', style: TextStyle(color: Colors.blue)),
+                Container(
+                    // decoration: BoxDecoration(color: Colors.green),
+                    child: Text('Top tháng',
+                        style: TextStyle(color: Colors.blue))),
                 Text('Top tuần', style: TextStyle(color: Colors.green)),
                 Text('Top ngày', style: TextStyle(color: Colors.red)),
               ]),
@@ -72,7 +76,7 @@ class DanhSachTopTruyen extends State with TickerProviderStateMixin {
             child: TabBarView(controller: _tabController, children: <Widget>[
               ListTopMonth(),
               ListTopWeek(),
-              Text('ccccc'),
+              ListTopDay(),
             ]))
       ]),
     );

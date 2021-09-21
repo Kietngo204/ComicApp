@@ -62,6 +62,7 @@ class _ListTopMonthState extends State<ListTopMonth>
                             Expanded(
                               flex: 1,
                               child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
                                     '0${(index + 1)}',
