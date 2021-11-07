@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:text_1/DocTruyen/page1.dart';
+import 'package:text_1/DocTruyen/Api_thongtintruyen.dart';
 import 'package:text_1/DocTruyen/thongtintruyen.dart';
 import 'package:text_1/listruyen/truyenmoicapnhat/Request_truyenmoicapnhat.dart';
 
@@ -12,9 +12,12 @@ class TruyenMoiCapNhat extends StatefulWidget {
 }
 
 class TruyenCapNhat extends State {
-  // var dataNewTruyen = dataTruyenMoi;
   var _controller = ScrollController();
-  late ListTruyenMoiCapNhat _truyenCapNhat;
+  ListTruyenMoiCapNhat _truyenCapNhat = ListTruyenMoiCapNhat(
+      errorCode: -1001,
+      errorMsg: 'Không thể kết nối đến hệ thống đọc truyện',
+      data: []);
+
   @override
   void initState() {
     super.initState();
@@ -61,9 +64,12 @@ class TruyenCapNhat extends State {
                           return GestureDetector(
                               onTap: () {
                                 // Navigator.pushNamed(context, data.routeName);
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => Thongtintruyen(
-                                        chitiet: _truyenCapNhat.data[index])));
+                                var route = new MaterialPageRoute(
+                                    builder: (context) => new Thongtintruyen(
+                                          urlTruyen: _truyenCapNhat
+                                              .data[index].urlTruyen,
+                                        ));
+                                Navigator.of(context).push(route);
                               },
                               child: Container(
 
@@ -82,8 +88,9 @@ class TruyenCapNhat extends State {
                                             borderRadius:
                                                 BorderRadius.circular(10),
                                             child: Image.network(
-                                                _truyenCapNhat
-                                                    .data[index].urlImg,
+                                                'http:' +
+                                                    _truyenCapNhat
+                                                        .data[index].urlImg,
                                                 fit: BoxFit.cover,
                                                 width: MediaQuery.of(context)
                                                     .size

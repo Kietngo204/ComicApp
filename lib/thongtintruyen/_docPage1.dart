@@ -8,7 +8,7 @@ class DocPagea {
 
   static List<DocPagea> lstChapter() {
     return [
-      DocPagea(
+      /* DocPagea(
           chapter: 'Chapter 1',
           url:
               'http://www.nettruyenpro.com/truyen-tranh/anh-hung-onepunch/chap-1/80034'),
@@ -167,7 +167,7 @@ class DocPagea {
       DocPagea(
           chapter: 'Chapter 35',
           url:
-              'http://www.nettruyenpro.com/truyen-tranh/anh-hung-onepunch/chap-35/80073'),
+              'http://www.nettruyenpro.com/truyen-tranh/anh-hung-onepunch/chap-35/80073'), */
     ];
   }
 }

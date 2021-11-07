@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:text_1/listruyen/truyendecu/Request_truyendecu.dart';
-import 'package:text_1/listruyen/truyendecu/truyen_de_cu.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart';
 
@@ -12,7 +11,11 @@ class DanhSachDeCu extends StatefulWidget {
 }
 
 class TruyenDeCuState extends State {
-  late TruyenDeCu _truyenDeCu;
+  TruyenDeCu _truyenDeCu = TruyenDeCu(
+      data: [],
+      errorCode: -1001,
+      errorMsg: 'Không thể kết nối đến hệ thống đọc truyện');
+  //TruyenDeCu? _truyenDeCu;
   //List<Data> dataTruyenDeCu = List.empty();
   // var dataTruyen = dataTruyenDeCu;
   int indexCurrent = 0;

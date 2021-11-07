@@ -11,7 +11,10 @@ class ListTopDay extends StatefulWidget {
 }
 
 class _ListTopDayState extends State<ListTopDay> with TickerProviderStateMixin {
-  late TopDay _topDay;
+  TopDay _topDay = TopDay(
+      data: [],
+      errorCode: -1001,
+      errorMsg: 'Không thể kết nối đến hệ thống đọc truyện');
   late bool iLoading;
   @override
   void initState() {
@@ -168,36 +171,6 @@ class _ListTopDayState extends State<ListTopDay> with TickerProviderStateMixin {
                       ));
                 }),
           )
-        : Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(_topDay.errorMsg),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                    width: 60,
-                    height: 30,
-                    decoration: BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius: BorderRadius.circular(5)),
-                    child: GestureDetector(
-                      child: Icon(
-                        Icons.refresh,
-                        color: Colors.white,
-                      ),
-                      onTap: () {
-                        TopDayRequest.fetchTopDay().then((dataFromTopDay) {
-                          setState(() {
-                            _topDay = dataFromTopDay;
-                          });
-                        });
-                      },
-                    ))
-              ],
-            ),
-          );
+        : Center(child: CircularProgressIndicator());
   }
 }

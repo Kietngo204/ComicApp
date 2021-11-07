@@ -11,7 +11,10 @@ class ListTopWeek extends StatefulWidget {
 }
 
 class _ListTopWeekState extends State<ListTopWeek> {
-  late TopWeek _topWeek;
+  TopWeek _topWeek = TopWeek(
+      data: [],
+      errorCode: -1001,
+      errorMsg: 'Không thể kết nối đến hệ thống đọc truyện');
   late bool iLoading;
   @override
   void initState() {
@@ -168,36 +171,6 @@ class _ListTopWeekState extends State<ListTopWeek> {
                       ));
                 }),
           )
-        : Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(_topWeek.errorMsg),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                    width: 60,
-                    height: 30,
-                    decoration: BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius: BorderRadius.circular(5)),
-                    child: GestureDetector(
-                      child: Icon(
-                        Icons.refresh,
-                        color: Colors.white,
-                      ),
-                      onTap: () {
-                        TopWeekRequest.fetchTopWeek().then((dataFromTopWeek) {
-                          setState(() {
-                            _topWeek = dataFromTopWeek;
-                          });
-                        });
-                      },
-                    ))
-              ],
-            ),
-          );
+        : Center(child: CircularProgressIndicator());
   }
 }

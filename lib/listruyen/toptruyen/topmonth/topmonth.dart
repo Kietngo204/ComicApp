@@ -12,7 +12,10 @@ class ListTopMonth extends StatefulWidget {
 
 class _ListTopMonthState extends State<ListTopMonth>
     with TickerProviderStateMixin {
-  late TopMonth _topMonth;
+  TopMonth _topMonth = TopMonth(
+      errorCode: -1001,
+      errorMsg: 'Không thể kết nối đến hệ thống đọc truyện',
+      data: []);
   late bool iLoading;
   @override
   void initState() {

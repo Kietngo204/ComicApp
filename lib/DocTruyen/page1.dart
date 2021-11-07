@@ -186,6 +186,7 @@ class _PaGe1 extends State {
                 ))
               ])),
           Container(
+              alignment: Alignment.center,
               padding: EdgeInsets.only(left: 20),
               child: Row(children: [
                 ButtonTheme(
@@ -197,26 +198,13 @@ class _PaGe1 extends State {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => DocPage1()));
+                                builder: (context) => DocPage1(
+                                      chapter: '',
+                                      tenTruyen: '',
+                                      url: '',
+                                    )));
                       },
                       child: Text('Đọc từ đầu')),
-                ),
-                Container(
-                  padding: EdgeInsets.only(left: 10, right: 10),
-                  child: ButtonTheme(
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            primary: Colors.orange[300]),
-                        onPressed: () {},
-                        child: Text('Đọc mới nhất')),
-                  ),
-                ),
-                ButtonTheme(
-                  child: ElevatedButton(
-                      style:
-                          ElevatedButton.styleFrom(primary: Colors.orange[300]),
-                      onPressed: () {},
-                      child: Text('Đọc tiếp')),
                 ),
               ])),
           Container(

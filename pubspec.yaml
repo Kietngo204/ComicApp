@@ -35,6 +35,9 @@ dependencies:
   intl: ^0.17.0
   marquee: ^2.2.0
   http: ^0.13.3
+  imei_plugin: ^1.2.0
+  android_multiple_identifier: ^1.0.3
+  unique_identifier: ^0.2.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

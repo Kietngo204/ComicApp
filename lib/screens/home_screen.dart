@@ -4,6 +4,8 @@ import 'package:text_1/listruyen/toptruyen/toptruyen.dart';
 import 'package:text_1/listruyen/truyendecu/truyendecu.dart';
 import 'package:text_1/listruyen/truyenmoicapnhat/truyenmoicapnhat.dart';
 
+import 'drawer.dart';
+
 class MyApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -33,23 +35,8 @@ class HomeSreen extends State<MyApp> with WidgetsBindingObserver {
             'acssets/images/logo-nettruyen.png',
             // fit: BoxFit.cover,
           ),
-          actions: <Widget>[
-            IconButton(
-                onPressed: () {
-                  print('Clicked search');
-                },
-                icon: Icon(
-                  Icons.search,
-                  size: 30,
-                )),
-            IconButton(
-                onPressed: () {
-                  print('Clicked list');
-                },
-                icon: Icon(Icons.reorder_sharp,
-                    size: 30, color: Colors.yellow.shade200))
-          ],
         ),
+        endDrawer: Drawer1(),
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Column(
